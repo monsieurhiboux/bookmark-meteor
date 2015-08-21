@@ -1,0 +1,66 @@
+<template name="Home">
+  
+  <main class="bm-main">
+    <div class="bm-login">
+       {{#if currentUser}} 
+          <img src="{{ gravatar currentUser.emails.[0].address }}" class="bm-header-avatar" /> <span class="bm-header-menu">Hello {{> loginButtons}}.</span>
+        {{else}} 
+          {{> loginButtons }} to share in <b>{{ bookmark }}</b>.
+        {{/if}}
+    </div>
+    <div class="bm-content">
+      <div class="row">
+        <div class="col s12">
+          {{#if currentUser}}
+            <form>
+              <div class="row">
+                <div class="input-field col s7 m5 l5">
+                  <input type="url" id="link" name="link" placeholder="http://your.link" autocomplete="off"/>
+                  <input type="hidden" name="bookmarkInput" value="{{ bookmark }}" />
+                </div>
+                <div class="input-field col s5 m3 l2">
+                  <button class="btn waves-effect waves-light bm-button-share z-depth-0" type="submit" id="share" name="action">SHARE</button>
+                </div>
+              </div>
+            </form>
+          {{else}}
+            <br />
+          {{/if}}
+
+          {{#if links.count}}
+            <ul class="collection">
+              {{#each links}}
+                <li class="collection-item avatar bm-avatar {{#if ifUserView _id}} bm-avatar-view {{/if}}">
+                  <span class="title"><a href="{{link}}" id="actionClick" data="{{_id}}" target="_blank">{{title}}</a></span>
+                  <p>{{content}}</p>
+                  <a>
+                    <img src="{{ gravatarCollection userId }}" class="bm-collection-avatar" /> 
+                    <span class="bm-collection-info">
+                      Share by {{infoUser userId}} - {{#if view}}
+                        {{ view }} views
+                      {{else}}
+                        0 views
+                      {{/if}}
+                    </span>
+                  </a>
+                  {{#if currentUser}}
+                    {{#if ifDelete _id}}
+                      <a id="actionDelete" data="{{_id}}" class="secondary-content">Delete</a>
+                    {{/if}}
+                  {{/if}}
+                  
+                </li>
+              {{/each}}
+            </ul>
+          {{else}}
+            <center>
+              <img src="/images/empty1.png" /><br />
+              <h5>New bookmark <b>{{ bookmark }}</b>. The first to post!</h5>
+            </center>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </main>
+
+</template>

@@ -1,0 +1,28 @@
+<template name="Header">
+	<header>
+	    <ul id="nav-mobile" class="side-nav fixed bm-side-nav" style="width: 240px;">
+	      <li class="logo bm-li-logo"><a href="/"><center><img src="/images/bm.png" class="bm-logo"></center></a></li>
+	      <li class="bold bm-side-nav-top">
+	      	{{#if bookmark}}
+	      		<a href="#" class="waves-teal">{{ bookmark }}</a> 
+	      		{{#if exist}}
+	      			<a id="actionDelete" class="bm-side-nav-top-x" data="{{ bookmark }}" >X</a>
+	      		{{else}}
+	      			<a id="actionAdd" class="bm-side-nav-top-plus" data="{{ bookmark }}" >+</a>
+	      		{{/if}}
+	      	{{else}}
+	      		<a href="#" class="waves-teal">Welcome to Bookmark</a>
+	      	{{/if}}
+	      </li>
+	      <div class="bm-side-nav-space"></div>
+	      {{#each bookmarks}}
+	      	<li class="bold"><a href="/bookmark/{{bookmark}}" class="waves-teal">{{ bookmark }}</a></li>
+	      {{/each}}
+	      <li class="bold bm-side-nav-bottom bm-side-nav-bottom-input">
+	      	<form>
+	      		<input placeholder="+ Bookmark" type="text" id="addBookmark" name="bookmark" autocomplete="off">
+	      	</form>
+	      </li>
+	 	</ul>
+	</header>
+</template>
